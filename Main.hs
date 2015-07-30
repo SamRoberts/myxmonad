@@ -1,19 +1,28 @@
 module Main (main) where
 
+import System.Directory (getCurrentDirectory)
+import System.FilePath ((</>))
+
+import Graphics.X11.Types (mod1Mask, xK_B)
+
 import XMonad (XConfig(..), (|||), defaultConfig, spawn, terminal, xmonad)
 import XMonad.Hooks.FadeInactive (fadeInactiveLogHook)
-import XMonad.Hooks.DynamicLog (PP(..), defaultPP, dynamicLogWithPP)
+import XMonad.Hooks.DynamicLog (PP(..), defaultPP, dynamicLogWithPP, statusBar)
 import XMonad.Layout.Ellipse (ellipse)
 import XMonad.Layout.Ratio  (goldenRatio)
 import XMonad.Layout.Tabbed (simpleTabbed)
 import XMonad.Util.EZConfig (additionalKeysP)
 
-main = xmonad myConfig
+main = do
+  dir <- getCurrentDirectory
+  conf <- statusBar (dir </> "xmobar") myOutput (const (myModMask, xK_B)) myConfig
+  xmonad conf
 
 myConfig = defaultConfig
-           { logHook = fadeInactiveLogHook 0.6 >> dynamicLogWithPP myOutput
+           { logHook = fadeInactiveLogHook 0.6
            , layoutHook = ellipse ||| goldenRatio ||| simpleTabbed
            , terminal = myTerminal
+           , modMask = myModMask
            }
            `additionalKeysP`
            [ ("M-r f", spawn "firefox")
@@ -29,3 +38,5 @@ myOutput = defaultPP
            { ppTitle = const ""
            , ppLayout = const ""
            }
+
+myModMask = mod1Mask
