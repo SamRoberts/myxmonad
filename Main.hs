@@ -2,7 +2,7 @@ module Main (main) where
 
 import System.Environment (getArgs)
 
-import Graphics.X11.Types (mod1Mask, xK_B)
+import Graphics.X11.Types (mod4Mask, xK_B)
 
 import XMonad (XConfig(..), (|||), defaultConfig, spawn, terminal, xmonad)
 import XMonad.Hooks.FadeInactive (fadeInactiveLogHook)
@@ -38,4 +38,4 @@ myOutput = defaultPP
            , ppLayout = const ""
            }
 
-myModMask = mod1Mask
+myModMask = mod4Mask
