@@ -1,7 +1,6 @@
 module Main (main) where
 
-import System.Directory (getCurrentDirectory)
-import System.FilePath ((</>))
+import System.Environment (getArgs)
 
 import Graphics.X11.Types (mod1Mask, xK_B)
 
@@ -14,8 +13,8 @@ import XMonad.Layout.Tabbed (simpleTabbed)
 import XMonad.Util.EZConfig (additionalKeysP)
 
 main = do
-  dir <- getCurrentDirectory
-  conf <- statusBar (dir </> "xmobar") myOutput (const (myModMask, xK_B)) myConfig
+  [xmobar] <- getArgs
+  conf <- statusBar xmobar myOutput (const (myModMask, xK_B)) myConfig
   xmonad conf
 
 myConfig = defaultConfig
