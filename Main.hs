@@ -31,7 +31,7 @@ myConfig = defaultConfig
            , ("M-S-,", spawn "bgprev.sh")
            ]
 
-myTerminal = "urxvt +sb -vb -fg White -bg Black"
+myTerminal = "urxvt +sb -vb -fg White -bg Black -fn xft:DejaVuSansMono:pixelsize=14"
 
 myOutput = defaultPP
            { ppTitle = const ""
